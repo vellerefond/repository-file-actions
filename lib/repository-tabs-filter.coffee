@@ -7,6 +7,7 @@ module.exports =
 		setTimeout (=> @initialize state), 0
 
 	initialize: (state) ->
+		return unless atom.packages.getLoadedPackage 'tabs'
 		return if globals.repositoryTabsFilterInitialized
 		globals.repositoryTabsFilterInitialized = true
 		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-repository-user-unmodified-files', => @closeRepositoryUserUnmodifiedFiles()
@@ -22,7 +23,7 @@ module.exports =
 			return unless fileStatuses.length
 			minimumBufferIndex = 0
 			if toTheRight
-				currentBuffer = atom.workspace.getActiveTextEditor()?.buffer
+				currentBuffer = require('atom-space-pen-views').jQuery('.tab.right-clicked')[0].item.buffer
 				if currentBuffer
 					atom.project.buffers.some (buffer, index) ->
 						return false unless currentBuffer is buffer
@@ -41,7 +42,7 @@ module.exports =
 			return unless fileStatuses.length
 			minimumBufferIndex = 0
 			if toTheRight
-				currentBuffer = atom.workspace.getActiveTextEditor()?.buffer
+				currentBuffer = require('atom-space-pen-views').jQuery('.tab.right-clicked')[0].item.buffer
 				if currentBuffer
 					atom.project.buffers.some (buffer, index) ->
 						return false unless currentBuffer is buffer
