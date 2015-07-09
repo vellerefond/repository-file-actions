@@ -1,0 +1,7 @@
+'context-menu':
+	'.tab-bar': [
+		{ label: 'Close Repo/User Unmodified files', command: 'repository-tabs-filter:close-repository-user-unmodified-files' },
+		{ label: 'Keep Only Repo New/User Modified Files', command: 'repository-tabs-filter:keep-only-repository-new-user-modified-files' },
+		{ label: 'Open Repo New Files', command: 'repository-tabs-filter:open-repository-new-files' },
+		{ label: 'Open Repo Modified Files', command: 'repository-tabs-filter:open-repository-modified-files' }
+	]

@@ -1,0 +1,15 @@
+{
+	"name": "repository-tabs-filter",
+	"main": "./lib/repository-tabs-filter",
+	"version": "0.1.0",
+	"description": "A package to filter the open tabs using information from the repository in use.",
+	"repository": "https://github.com/vellerefond/repository-tabs-filter",
+	"license": "GPL-2.0",
+	"engines": {
+	"atom": ">=1.0.0 <2.0.0"
+	},
+	"dependencies": {
+		"tabs": ">=0.0.0",
+		"q": ">=1.0.0"
+	}
+}
