@@ -1,3 +1,7 @@
+###### 0.2.0 - Impelemented "to the right" logic for options that close files
+* Implemented Close Right Repo/User Unmodified files
+* Keep Only Right Repo New/User Modified Files
+
 ###### 0.1.0 - Initial implementation of repository-tabs-filter
 * Implemented Close Repo/User Unmodified files
 * Implemented Keep Only Repo New/User Modified Files

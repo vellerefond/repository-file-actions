@@ -10,27 +10,46 @@ module.exports =
 		return if globals.repositoryTabsFilterInitialized
 		globals.repositoryTabsFilterInitialized = true
 		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-repository-user-unmodified-files', => @closeRepositoryUserUnmodifiedFiles()
+		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-right-repository-user-unmodified-files', => @closeRepositoryUserUnmodifiedFiles true
 		atom.commands.add 'atom-workspace', 'repository-tabs-filter:keep-only-repository-new-user-modified-files', => @keepOnlyRepositoryNewUserModifiedFiles()
+		atom.commands.add 'atom-workspace', 'repository-tabs-filter:keep-only-right-repository-new-user-modified-files', =>
+			@keepOnlyRepositoryNewUserModifiedFiles true
 		atom.commands.add 'atom-workspace', 'repository-tabs-filter:open-repository-new-files', => @openRepositoryNewFiles()
 		atom.commands.add 'atom-workspace', 'repository-tabs-filter:open-repository-modified-files', => @openRepositoryModifiedFiles()
 
-	closeRepositoryUserUnmodifiedFiles: ->
+	closeRepositoryUserUnmodifiedFiles: (toTheRight) ->
 		lib.getFileStatuses().then (fileStatuses) ->
 			return unless fileStatuses.length
+			minimumBufferIndex = 0
+			if toTheRight
+				currentBuffer = atom.workspace.getActiveTextEditor()?.buffer
+				if currentBuffer
+					atom.project.buffers.some (buffer, index) ->
+						return false unless currentBuffer is buffer
+						minimumBufferIndex = index + 1
+						true
 			fileStatuses = fileStatuses.filter (fileStatus) -> fileStatus.buffer and (fileStatus.noStatus or fileStatus.isUnmodified)
 			atom.workspace.getPanes().forEach (pane) ->
-				pane.getItems().filter((item) -> item.buffer and item.buffer.file).forEach (item) ->
+				pane.getItems().filter((item, index) -> index >= minimumBufferIndex && item.buffer and item.buffer.file).forEach (item) ->
 					fileStatuses.some (fileStatus) ->
 						return false unless item.buffer.file.path is fileStatus.buffer.file.path and not item.buffer.isModified()
 						pane.destroyItem item
 						true
 
-	keepOnlyRepositoryNewUserModifiedFiles: ->
+	keepOnlyRepositoryNewUserModifiedFiles: (toTheRight) ->
 		lib.getFileStatuses().then (fileStatuses) ->
 			return unless fileStatuses.length
+			minimumBufferIndex = 0
+			if toTheRight
+				currentBuffer = atom.workspace.getActiveTextEditor()?.buffer
+				if currentBuffer
+					atom.project.buffers.some (buffer, index) ->
+						return false unless currentBuffer is buffer
+						minimumBufferIndex = index + 1
+						true
 			fileStatuses = fileStatuses.filter (fileStatus) -> fileStatus.buffer and (fileStatus.noStatus or not fileStatus.isNew)
 			atom.workspace.getPanes().forEach (pane) ->
-				pane.getItems().filter((item) -> item.buffer and item.buffer.file).forEach (item) ->
+				pane.getItems().filter((item, index) -> index >= minimumBufferIndex && item.buffer and item.buffer.file).forEach (item) ->
 					fileStatuses.some (fileStatus) ->
 						return false unless item.buffer.file.path is fileStatus.buffer.file.path and not item.buffer.isModified()
 						pane.destroyItem item
