@@ -1,3 +1,5 @@
+###### 0.6.0 - Renamed the package from repository-tabs-filter to repository-file-actions
+
 ###### 0.5.0 - Fixed the context menu entries logic to never touch user modified files but to refer to repository files only
 
 ###### 0.4.0 - Simplified the context menu entries and made them more understandable and user friendly

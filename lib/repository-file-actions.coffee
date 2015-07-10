@@ -1,6 +1,6 @@
-lib = require './repository-tabs-filter-lib'
+lib = require './repository-file-actions-lib'
 
-globals = repositoryTabsFilterInitialized: false
+globals = repositoryFileActionsInitialized: false
 
 module.exports =
 	activate: (state) ->
@@ -8,18 +8,18 @@ module.exports =
 
 	initialize: (state) ->
 		return unless atom.packages.getLoadedPackage 'tabs'
-		return if globals.repositoryTabsFilterInitialized
-		globals.repositoryTabsFilterInitialized = true
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-repository-unmodified-user-unmodified-files', =>
+		return if globals.repositoryFileActionsInitialized
+		globals.repositoryFileActionsInitialized = true
+		atom.commands.add 'atom-workspace', 'repository-file-actions:close-repository-unmodified-user-unmodified-files', =>
 			@closeRepositoryUnmodifiedUserUnmodifiedFiles()
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-right-repository-unmodified-user-unmodified-files', =>
+		atom.commands.add 'atom-workspace', 'repository-file-actions:close-right-repository-unmodified-user-unmodified-files', =>
 			@closeRepositoryUnmodifiedUserUnmodifiedFiles true
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:keep-only-repository-new-modified-user-modified-files', =>
+		atom.commands.add 'atom-workspace', 'repository-file-actions:keep-only-repository-new-modified-user-modified-files', =>
 			@keepOnlyRepositoryNewModifiedUserModifiedFiles()
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:keep-only-right-repository-new-modified-user-modified-files', =>
+		atom.commands.add 'atom-workspace', 'repository-file-actions:keep-only-right-repository-new-modified-user-modified-files', =>
 			@keepOnlyRepositoryNewModifiedUserModifiedFiles true
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:open-repository-new-files', => @openRepositoryNewFiles()
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:open-repository-modified-files', => @openRepositoryModifiedFiles()
+		atom.commands.add 'atom-workspace', 'repository-file-actions:open-repository-new-files', => @openRepositoryNewFiles()
+		atom.commands.add 'atom-workspace', 'repository-file-actions:open-repository-modified-files', => @openRepositoryModifiedFiles()
 
 	closeRepositoryUnmodifiedUserUnmodifiedFiles: (toTheRight) ->
 		lib.getFileStatuses().then (fileStatuses) ->

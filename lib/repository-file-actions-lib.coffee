@@ -62,7 +62,7 @@ module.exports =
 					statusRepo = unmatchedRepoPaths[unmatchedRepoPath]
 					isNew = statusRepo.repository.repo.isStatusNew statusRepo.status
 					isModified = statusRepo.repository.repo.isStatusModified statusRepo.status
-					stat = _fs.statSync unmatchedRepoPath
+					stat = if _fs.existsSync unmatchedRepoPath then _fs.statSync unmatchedRepoPath else undefined
 					result.push
 						filePath: unmatchedRepoPath
 						isNew: isNew
@@ -70,7 +70,7 @@ module.exports =
 						isUnmodified: not isNew and not isModified
 						isIgnored: statusRepo.repository.repo.isStatusIgnored statusRepo.status
 						isDeleted: statusRepo.repository.repo.isStatusDeleted statusRepo.status
-						isFile: stat.isFile()
-						isDirectory: stat.isDirectory()
+						isFile: if stat then stat.isFile() else false
+						isDirectory: if stat then stat.isDirectory() else false
 				defer.resolve result
 				defer.promise

@@ -1,5 +1,5 @@
-# repository-tabs-filter
-#### A package to filter the open files using information from the repository in use.
+# repository-file-actions
+#### A package to do certain actions like opening or closing files, using information from the repository in use.
 
 ###### The package options are available through the tab bar context menu and the explanation per option is as follows:
 

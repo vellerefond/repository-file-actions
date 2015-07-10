@@ -1,9 +1,9 @@
 {
-	"name": "repository-tabs-filter",
-	"main": "./lib/repository-tabs-filter",
-	"version": "0.5.0",
-	"description": "A package to filter the open tabs using information from the repository in use.",
-	"repository": "https://github.com/vellerefond/repository-tabs-filter",
+	"name": "repository-file-actions",
+	"main": "./lib/repository-file-actions",
+	"version": "0.6.0",
+	"description": "A package to do certain actions like opening or closing files, using information from the repository in use.",
+	"repository": "https://github.com/vellerefond/repository-file-actions",
 	"license": "GPL-2.0",
 	"engines": {
 	"atom": ">=1.0.0 <2.0.0"
