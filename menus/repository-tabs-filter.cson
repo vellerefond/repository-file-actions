@@ -1,11 +1,14 @@
 'context-menu':
 	'.tab-bar': [
-		{ label: 'Close Repo/User Unmodified files', command: 'repository-tabs-filter:close-repository-user-unmodified-files' },
-		{ label: 'Keep Only Repo New/User Modified Files', command: 'repository-tabs-filter:keep-only-repository-new-user-modified-files' },
-		{ label: 'Open Repo New Files', command: 'repository-tabs-filter:open-repository-new-files' },
-		{ label: 'Open Repo Modified Files', command: 'repository-tabs-filter:open-repository-modified-files' }
+		{ type: 'separator' },
+		{ label: 'Open VCS New Files', command: 'repository-tabs-filter:open-repository-new-files' },
+		{ label: 'Open VCS Modified Files', command: 'repository-tabs-filter:open-repository-modified-files' },
+		{ type: 'separator' }
 	]
 	'.tab': [
-		{ label: 'Close Right Repo/User Unmodified files', command: 'repository-tabs-filter:close-right-repository-user-unmodified-files' },
-		{ label: 'Keep Only Right Repo New/User Modified Files', command: 'repository-tabs-filter:keep-only-right-repository-new-user-modified-files' }
+		{ label: 'Close VCS Unmodified files', command: 'repository-tabs-filter:close-repository-user-unmodified-files' },
+		{ label: 'Close VCS Unmodified files to the Right', command: 'repository-tabs-filter:close-right-repository-user-unmodified-files' },
+		{ label: 'Keep Only VCS New and Modified Files', command: 'repository-tabs-filter:keep-only-repository-new-user-modified-files' },
+		{ label: 'Keep Only VCS New and Modified Files to the Right', command: 'repository-tabs-filter:keep-only-right-repository-new-user-modified-files' },
+		{ type: 'separator' }
 	]

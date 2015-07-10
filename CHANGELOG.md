@@ -1,3 +1,5 @@
+###### 0.4.0 - Simplified the context menu entries and made them more understandable and user friendly
+
 ###### 0.3.0 - Fixed the "to the right" logic for when the right clicked tab is not the active tab
 
 ###### 0.2.0 - Impelemented "to the right" logic for options that close files
