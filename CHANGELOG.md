@@ -1,3 +1,5 @@
+###### 0.5.0 - Fixed the context menu entries logic to never touch user modified files but to refer to repository files only
+
 ###### 0.4.0 - Simplified the context menu entries and made them more understandable and user friendly
 
 ###### 0.3.0 - Fixed the "to the right" logic for when the right clicked tab is not the active tab

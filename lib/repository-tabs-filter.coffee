@@ -10,15 +10,18 @@ module.exports =
 		return unless atom.packages.getLoadedPackage 'tabs'
 		return if globals.repositoryTabsFilterInitialized
 		globals.repositoryTabsFilterInitialized = true
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-repository-user-unmodified-files', => @closeRepositoryUserUnmodifiedFiles()
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-right-repository-user-unmodified-files', => @closeRepositoryUserUnmodifiedFiles true
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:keep-only-repository-new-user-modified-files', => @keepOnlyRepositoryNewUserModifiedFiles()
-		atom.commands.add 'atom-workspace', 'repository-tabs-filter:keep-only-right-repository-new-user-modified-files', =>
-			@keepOnlyRepositoryNewUserModifiedFiles true
+		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-repository-unmodified-user-unmodified-files', =>
+			@closeRepositoryUnmodifiedUserUnmodifiedFiles()
+		atom.commands.add 'atom-workspace', 'repository-tabs-filter:close-right-repository-unmodified-user-unmodified-files', =>
+			@closeRepositoryUnmodifiedUserUnmodifiedFiles true
+		atom.commands.add 'atom-workspace', 'repository-tabs-filter:keep-only-repository-new-modified-user-modified-files', =>
+			@keepOnlyRepositoryNewModifiedUserModifiedFiles()
+		atom.commands.add 'atom-workspace', 'repository-tabs-filter:keep-only-right-repository-new-modified-user-modified-files', =>
+			@keepOnlyRepositoryNewModifiedUserModifiedFiles true
 		atom.commands.add 'atom-workspace', 'repository-tabs-filter:open-repository-new-files', => @openRepositoryNewFiles()
 		atom.commands.add 'atom-workspace', 'repository-tabs-filter:open-repository-modified-files', => @openRepositoryModifiedFiles()
 
-	closeRepositoryUserUnmodifiedFiles: (toTheRight) ->
+	closeRepositoryUnmodifiedUserUnmodifiedFiles: (toTheRight) ->
 		lib.getFileStatuses().then (fileStatuses) ->
 			return unless fileStatuses.length
 			minimumBufferIndex = 0
@@ -37,7 +40,7 @@ module.exports =
 						pane.destroyItem item
 						true
 
-	keepOnlyRepositoryNewUserModifiedFiles: (toTheRight) ->
+	keepOnlyRepositoryNewModifiedUserModifiedFiles: (toTheRight) ->
 		lib.getFileStatuses().then (fileStatuses) ->
 			return unless fileStatuses.length
 			minimumBufferIndex = 0
@@ -48,7 +51,7 @@ module.exports =
 						return false unless currentBuffer is buffer
 						minimumBufferIndex = index + 1
 						true
-			fileStatuses = fileStatuses.filter (fileStatus) -> fileStatus.buffer and (fileStatus.noStatus or not fileStatus.isNew)
+			fileStatuses = fileStatuses.filter (fileStatus) -> fileStatus.buffer and (fileStatus.noStatus or not (fileStatus.isNew or fileStatus.isModified))
 			atom.workspace.getPanes().forEach (pane) ->
 				pane.getItems().filter((item, index) -> index >= minimumBufferIndex && item.buffer and item.buffer.file).forEach (item) ->
 					fileStatuses.some (fileStatus) ->
