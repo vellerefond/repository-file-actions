@@ -1,3 +1,5 @@
+###### 0.7.0 - Fixed a bug regarding project root directories that do not correspond to a repository working directory
+
 ###### 0.6.0 - Renamed the package from repository-tabs-filter to repository-file-actions
 
 ###### 0.5.0 - Fixed the context menu entries logic to never touch user modified files but to refer to repository files only
